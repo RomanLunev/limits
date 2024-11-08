@@ -8,11 +8,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Repository
 public interface LimitRepository extends JpaRepository<UserLimit, Long> {
 
-  UserLimit findByUserId(Long userId);
+  Optional<UserLimit> findByUserId(Long userId);
 
   @Modifying
   @Query("update UserLimit l set l.amount = :amount")
