@@ -6,6 +6,7 @@ import org.example.dto.RequestDto;
 import org.example.dto.ResponseDto;
 import org.example.entity.UserLimit;
 import org.example.repository.LimitRepository;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +42,7 @@ public class LimitService {
             + " successfully. UserId: " + userLimit.getUserId() + " has new userLimit: " + userLimit.getAmount());
   }
 
+  @Scheduled(cron = "${service.limits.reset-time}")
   @Transactional
   public void resetLimits() {
     BigDecimal amount = serviceProperties.limits().amount();
